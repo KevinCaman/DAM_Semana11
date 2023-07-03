@@ -1,6 +1,5 @@
 package com.example.dam_sem11_proyecto;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -18,16 +17,16 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
     private final List<Nota> mValues;
     private  final NotasInteractionListener mListener;
 
-    public MyNotaRecyclerViewAdapter(List<Nota> items, NotasInteractionListener listener) {
+    public MyNotaRecyclerViewAdapter(List<Nota> notaList, NotasInteractionListener mListener) {
 
-        mValues = items;
-        mListener=listener;
+        this.mValues = notaList;
+        this.mListener=mListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
+        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class MyNotaRecyclerViewAdapter extends RecyclerView.Adapter<MyNotaRecycl
         if(holder.mItem.isFavorita()){
             holder.ivFavorita.setImageResource(R.drawable.baseline_star_border_24);
         }
-        holder.ivFavorita.setOnClickListener((v)->{
+        holder.ivFavorita.setOnClickListener(v->{
             if(null!=mListener){
                 mListener.favoritaNotaClick(holder.mItem);
             }
